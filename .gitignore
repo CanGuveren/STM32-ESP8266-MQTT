@@ -1,0 +1,10 @@
+.settings/
+Debug/
+Drivers/
+.cproject
+.mxproject
+.project
+ESP8266_Library Debug.launch
+ESP8266_Library.ioc
+STM32F407VGTX_FLASH.ld
+STM32F407VGTX_RAM.ld
