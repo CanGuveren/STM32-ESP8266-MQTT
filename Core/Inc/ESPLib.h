@@ -54,7 +54,7 @@ funcState_t ESP8266_sendMessage(char *msg, uint8_t msgSize);
 /* MQTT Function */
 void MQTT_connectBroker(uint8_t flag, uint16_t keepAlive, char *clientID);
 void MQTT_publishTopic(char *topic, char *msg);
-void MQTT_subscribeTopic(char *topic);
+void MQTT_subscribeTopic(char *topic, uint8_t QoS);
 /* Receiver functions */
 void uartDataHandler(void);
 void uartTimer(void);

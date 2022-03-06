@@ -4,9 +4,16 @@
  *  Created on: Feb 14, 2022
  *      Author: Ümit Can Güveren
  */
+
+
+/*EKLENECEKLER*/
+// mqtt connect yaparken password ve id ekleme, flag kontrolleri ve flag'e göre veri paketi oluşturma
+// do-while döngülerinin içinde belli bir süre sonra işlemciye reset atma
+
+
 #include <ESPLib.h>
 #include "main.h"
-#include "stm32f4xx.h"
+
 
 char Buffer[BUFFERSIZE];
 char rxBuffer[BUFFERSIZE];
@@ -29,10 +36,6 @@ char *SEND_OK = "SEND OK\r\n";
 char *ERROR_ = "ERROR\r\n";
 char *CIPSEND_RESPONSE = "OK\r\n> ";
 
-char *AT_CWJAP = "AT+CWJAP=\"fenerbahce\",\"1907190719\"\r\n";
-char *AT_CIPSTART = "\"TCP\",\"192.168.1.34\",1883\r\n";
-char *AT_CIPSEND = "AT+CIPSEND=5\r\n";
-char *AT_CWQAP = "AT+CWQAP\r\n";
 
 void sendData(char *cmd, uint8_t cmdSize, uint16_t timeout) //size'ı fonksiyonda al.
 {
@@ -211,7 +214,7 @@ void MQTT_publishTopic(char *topic, char *msg)
 	HAL_UART_Receive_IT(&huart2, &uartRxData, 1);
 }
 
-void MQTT_subscribeTopic(char *topic)
+void MQTT_subscribeTopic(char *topic, uint8_t QoS)
 {
 	uint8_t mqttLenght;
 
@@ -222,7 +225,7 @@ void MQTT_subscribeTopic(char *topic)
 	uint16_t packetID = 0x01;
 	memset(mqttPacket, 0, 100);
 
-	mqttLenght = sprintf(mqttPacket, "%c%c%c%c%c%c%s%c", (char)MQTTsubscribe, (char)remainingLenght, (char)packetID << 8, (char)packetID, (char)topicLenght << 8, (char)topicLenght, topic, 0x00);
+	mqttLenght = sprintf(mqttPacket, "%c%c%c%c%c%c%s%c", (char)MQTTsubscribe, (char)remainingLenght, (char)packetID << 8, (char)packetID, (char)topicLenght << 8, (char)topicLenght, topic, QoS);
 	ESP8266_sendMessage(mqttPacket, mqttLenght);
 }
 

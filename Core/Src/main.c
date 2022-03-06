@@ -90,10 +90,10 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   ESP8266_Init(StationMode);
-  ESP8266_wifiConnect("fenerbahce","1907190719");
-  ESP8266_portConnect("TCP", "192.168.1.34", "1883");
-  MQTT_connectBroker(0x02, 100, "Can");
-  MQTT_subscribeTopic("IOT");
+  ESP8266_wifiConnect("****","****");
+  ESP8266_portConnect("TCP", "***.***.*.**", "1883");
+  MQTT_connectBroker(0x02, 100, "stm32");
+  MQTT_subscribeTopic("IOT", 0);
   HAL_UART_Receive_IT(&huart2 , &uartRxData , 1);
   /* USER CODE END 2 */
 
@@ -107,7 +107,7 @@ int main(void)
 
 	  if(flagSend > 1000)
 	  {
-		  MQTT_publishTopic("Deneme", "veri");
+		  MQTT_publishTopic("Deneme", "5");
 		  flagSend = 0;
 	  }
 	  //ESP8266_sendMessage("Hello");
